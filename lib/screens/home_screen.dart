@@ -9,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool tag = false;
   List freshList = [
     {"image": "assets/images/asparagus.png", "name": "Asian Glazed Asparagus"},
     {
@@ -168,10 +169,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: freshList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
                           builder: (context) => DetailRecipe(
+                              index,
                               freshList[index]["name"],
-                              freshList[index]["image"]))),
+                              freshList[index]["image"],
+                              tag = true),
+                        ),
+                      ),
                       child: Container(
                         margin: EdgeInsets.only(right: 32),
                         height: 240,
@@ -194,9 +200,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             Positioned(
                               top: 16,
                               right: -32,
-                              child: Image.asset(
-                                freshList[index]["image"],
-                                height: 100,
+                              child: Hero(
+                                tag: "fresh$index",
+                                child: Image.asset(
+                                  freshList[index]["image"],
+                                  height: 100,
+                                ),
                               ),
                             ),
                             Positioned(
@@ -324,10 +333,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
                         builder: (context) => DetailRecipe(
+                            index,
                             recommendedList[index]["name"],
-                            recommendedList[index]["image"]))),
+                            recommendedList[index]["image"],
+                            tag = false),
+                      ),
+                    ),
                     child: Container(
                       height: 120,
                       width: MediaQuery.of(context).size.width,
@@ -342,11 +356,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: Row(
                         children: [
-                          Image.asset(
-                            recommendedList[index]["image"],
-                            height: 180,
-                            width: 120,
-                            fit: BoxFit.contain,
+                          Hero(
+                            tag: "recommended$index",
+                            child: Image.asset(
+                              recommendedList[index]["image"],
+                              height: 180,
+                              width: 120,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                           Expanded(
                             child: Padding(

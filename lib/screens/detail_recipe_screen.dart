@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:foocarie/constants.dart';
 
 class DetailRecipe extends StatefulWidget {
+  final int index;
   final String name;
   final String image;
+  final bool tag;
 
-  DetailRecipe(this.name, this.image);
+  DetailRecipe(this.index, this.name, this.image, this.tag);
 
   @override
   _DetailRecipeState createState() => _DetailRecipeState();
@@ -164,11 +166,16 @@ class _DetailRecipeState extends State<DetailRecipe> {
                         ],
                       ),
                     ),
-                    Image.asset(
-                      widget.image,
-                      height: 250,
-                      width: 400,
-                      fit: BoxFit.contain,
+                    Hero(
+                      tag: widget.tag
+                          ? "fresh${widget.index}"
+                          : "recommended${widget.index}",
+                      child: Image.asset(
+                        widget.image,
+                        height: 250,
+                        width: 400,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ],
                 ),
