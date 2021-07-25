@@ -169,7 +169,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DetailRecipe())),
+                          builder: (context) => DetailRecipe(
+                              freshList[index]["name"],
+                              freshList[index]["image"]))),
                       child: Container(
                         margin: EdgeInsets.only(right: 32),
                         height: 240,
@@ -323,7 +325,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DetailRecipe())),
+                        builder: (context) => DetailRecipe(
+                            recommendedList[index]["name"],
+                            recommendedList[index]["image"]))),
                     child: Container(
                       height: 120,
                       width: MediaQuery.of(context).size.width,
