@@ -5,6 +5,8 @@ import 'package:foocarie/screens/detail_recipe_screen.dart';
 import 'package:foocarie/screens/recipe_predictor.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -33,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: kLightColor,
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(top: 64, left: 16, right: 16),
+          margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   GestureDetector(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => RecipePredictorScreen(),
+                        builder: (context) => const RecipePredictorScreen(),
                       ),
                     ),
                     child: SvgPicture.asset(
@@ -60,35 +62,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 "Bonjor Emma",
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey,
                 ),
               ),
-              SizedBox(height: 12),
-              Text(
+              const SizedBox(height: 12),
+              const Text(
                 "What would you like to cook today?",
                 style: TextStyle(
                   fontSize: 28.0,
                   fontFamily: "HellixBold",
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 6,
                         horizontal: 8,
                       ),
                       decoration: BoxDecoration(
                           color: kPrimaryColor,
                           borderRadius: BorderRadius.circular(14)),
-                      child: TextField(
+                      child: const TextField(
                         cursorColor: kDarkColor,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -106,11 +108,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   GestureDetector(
                     onTap: () => print("settings"),
                     child: Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 18,
                         horizontal: 18,
                       ),
@@ -127,17 +129,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Todays Fresh Recipe",
                     style: TextStyle(fontSize: 22, fontFamily: "HellixBold"),
                   ),
                   GestureDetector(
                     onTap: () => print("see all"),
-                    child: Text(
+                    child: const Text(
                       "See All",
                       style: TextStyle(
                           fontSize: 18,
@@ -147,8 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
-              Container(
+              const SizedBox(height: 16),
+              SizedBox(
                 height: 240,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -166,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       child: Container(
-                        margin: EdgeInsets.only(right: 32),
+                        margin: const EdgeInsets.only(right: 32),
                         height: 240,
                         width: 200,
                         decoration: BoxDecoration(
@@ -176,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Stack(
                           clipBehavior: Clip.none,
                           children: [
-                            Positioned(
+                            const Positioned(
                               top: 16,
                               left: 16,
                               child: Icon(
@@ -198,13 +200,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             Positioned(
                               top: 110,
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                   horizontal: 16,
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Breakfast",
                                       style: TextStyle(
                                         fontSize: 14,
@@ -212,42 +214,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(height: 8),
-                                    Container(
+                                    const SizedBox(height: 8),
+                                    SizedBox(
                                       width: 180,
                                       child: Text(
                                         freshList[index]["name"],
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 18,
                                           fontFamily: "HellixBold",
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                     Row(
                                       children: List.generate(
                                         5,
-                                        (index) => Icon(
+                                        (index) => const Icon(
                                           Icons.star,
                                           color: kOrangeColor,
                                           size: 16,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 6),
-                                    Text(
+                                    const SizedBox(height: 6),
+                                    const Text(
                                       "120 Calories",
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: kOrangeColor,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                     Row(
                                       children: [
                                         Row(
-                                          children: [
+                                          children: const [
                                             Icon(
                                               Icons.access_time,
                                               color: Colors.grey,
@@ -262,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(width: 16),
+                                        const SizedBox(width: 16),
                                         Row(
                                           children: [
                                             SvgPicture.asset(
@@ -270,8 +272,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               height: 14,
                                               color: Colors.grey,
                                             ),
-                                            SizedBox(width: 8),
-                                            Text(
+                                            const SizedBox(width: 8),
+                                            const Text(
                                               "1 Serving",
                                               style: TextStyle(
                                                   fontSize: 12,
@@ -292,17 +294,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Recommended",
                     style: TextStyle(fontSize: 22, fontFamily: "HellixBold"),
                   ),
                   GestureDetector(
                     onTap: () => print("see recommended"),
-                    child: Text(
+                    child: const Text(
                       "See All",
                       style: TextStyle(
                           fontSize: 18,
@@ -312,9 +314,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: recommendedList.length,
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
@@ -330,13 +332,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     child: Container(
-                      height: 120,
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 12,
-                        vertical: 12,
+                        vertical: 0,
                       ),
-                      margin: EdgeInsets.only(bottom: 16),
+                      margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
                         color: kPrimaryColor,
                         borderRadius: BorderRadius.circular(20),
@@ -354,11 +355,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Breakfast",
                                     style: TextStyle(
                                       fontSize: 14,
@@ -366,42 +368,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: 6),
+                                  const SizedBox(height: 6),
                                   Text(
                                     recommendedList[index]["name"],
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 18,
                                       fontFamily: "HellixBold",
                                     ),
                                   ),
                                   Row(
-                                    children: [
-                                      Row(
-                                        children: List.generate(
-                                          5,
-                                          (index) => Icon(
-                                            Icons.star,
-                                            color: kOrangeColor,
-                                            size: 16,
-                                          ),
-                                        ),
+                                    children: List.generate(
+                                      5,
+                                      (index) => const Icon(
+                                        Icons.star,
+                                        color: kOrangeColor,
+                                        size: 16,
                                       ),
-                                      SizedBox(width: 6),
-                                      Text(
-                                        "120 Calories",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: kOrangeColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                  SizedBox(height: 6),
+                                  const SizedBox(width: 6),
+                                  const SizedBox(height: 6),
+                                  const Text(
+                                    "120 Calories",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: kOrangeColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 6),
                                   Row(
                                     children: [
                                       Row(
-                                        children: [
+                                        children: const [
                                           Icon(
                                             Icons.access_time,
                                             color: Colors.grey,
@@ -416,7 +415,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(width: 16),
+                                      const SizedBox(width: 16),
                                       Row(
                                         children: [
                                           SvgPicture.asset(
@@ -424,8 +423,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             height: 14,
                                             color: Colors.grey,
                                           ),
-                                          SizedBox(width: 8),
-                                          Text(
+                                          const SizedBox(width: 8),
+                                          const Text(
                                             "1 Serving",
                                             style: TextStyle(
                                                 fontSize: 12,
@@ -439,20 +438,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Container(
-                              height: 28,
-                              width: 36,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -462,6 +447,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => RecipePredictorScreen(),
+          ),
+        ),
+        child: const Icon(Icons.image_search),
+        backgroundColor: kOrangeColor,
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 
 class RecipePredictorScreen extends StatefulWidget {
+  const RecipePredictorScreen({Key? key}) : super(key: key);
+
   @override
   _RecipePredictorScreenState createState() => _RecipePredictorScreenState();
 }
@@ -67,36 +69,34 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("TfLite Demo"),
+        title: const Text("TfLite Demo"),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(height: 30),
-            isImageLoaded
-                ? Center(
-                    child: Container(
-                      height: 350,
-                      width: 350,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: FileImage(
-                              File(imagePicked!.path),
-                            ),
-                            fit: BoxFit.contain),
-                      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 30),
+          isImageLoaded
+              ? Center(
+                  child: Container(
+                    height: 350,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: FileImage(
+                            File(imagePicked!.path),
+                          ),
+                          fit: BoxFit.contain),
                     ),
-                  )
-                : Container(),
-            Text("Name ; $_name \n Confidence: $_confidence"),
-          ],
-        ),
+                  ),
+                )
+              : Container(),
+          Text("Name ; $_name \n Confidence: $_confidence"),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           getImageFromGallery();
         },
-        child: Icon(Icons.photo_album),
+        child: const Icon(Icons.photo_album),
       ),
     );
   }
