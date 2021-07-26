@@ -11,37 +11,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool tag = false;
   List freshList = [
-    {"image": "assets/images/asparagus.png", "name": "Asian Glazed Asparagus"},
-    {
-      "image": "assets/images/chicken_fried_rice.png",
-      "name": "Chicken Amazing Fried Rice"
-    },
-    {
-      "image": "assets/images/filete_con_papas_cambray.png",
-      "name": "Con Papas Cambray Spicy"
-    },
-    {
-      "image": "assets/images/pasta_bolognese.png",
-      "name": "Pasta Bolognese Sweet Creamy"
-    },
-    {"image": "assets/images/steak_bacon.png", "name": "Steak Bacon Smoke"}
+    {"image": "assets/images/01.png", "name": "Asian Glazed Asparagus"},
+    {"image": "assets/images/02.png", "name": "Chicken Amazing Fried Rice"},
+    {"image": "assets/images/03.png", "name": "Con Papas Cambray Spicy"},
+    {"image": "assets/images/04.png", "name": "Pasta Bolognese Sweet Creamy"},
+    {"image": "assets/images/05.png", "name": "Steak Bacon Smoke"}
   ];
 
   List recommendedList = [
-    {"image": "assets/images/asparagus.png", "name": "Asian Glazed Asparagus"},
-    {
-      "image": "assets/images/chicken_fried_rice.png",
-      "name": "Chicken Amazing Fried Rice"
-    },
-    {
-      "image": "assets/images/filete_con_papas_cambray.png",
-      "name": "Con Papas Cambray Spicy"
-    },
-    {
-      "image": "assets/images/pasta_bolognese.png",
-      "name": "Pasta Bolognese Sweet Creamy"
-    },
-    {"image": "assets/images/steak_bacon.png", "name": "Steak Bacon Smoke"}
+    {"image": "assets/images/01.png", "name": "Asian Glazed Asparagus"},
+    {"image": "assets/images/02.png", "name": "Chicken Amazing Fried Rice"},
+    {"image": "assets/images/03.png", "name": "Con Papas Cambray Spicy"},
+    {"image": "assets/images/04.png", "name": "Pasta Bolognese Sweet Creamy"},
+    {"image": "assets/images/05.png", "name": "Steak Bacon Smoke"}
   ];
 
   @override
