@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foocarie/constants.dart';
 import 'package:foocarie/screens/detail_recipe_screen.dart';
+import 'package:foocarie/screens/recipe_predictor.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -40,7 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => print("Menu"),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => RecipePredictorScreen(),
+                      ),
+                    ),
                     child: SvgPicture.asset(
                       "assets/icons/menu.svg",
                       height: 32.0,
