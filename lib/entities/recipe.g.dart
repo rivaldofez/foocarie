@@ -16,11 +16,13 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       price: (json['price'] as num).toDouble(),
       serving: json['serving'] as int,
       time: (json['time'] as num).toDouble(),
+      categories: json['categories'] as String,
     );
 
 Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'categories': instance.categories,
       'price': instance.price,
       'calories': instance.calories,
       'time': instance.time,

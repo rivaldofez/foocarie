@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool tag = false;
   List<Recipe> _popularRecipe = [];
-  List<Recipe> _recommendedRecipe = [];
+  List<Recipe> _allRecipe = [];
 
   @override
   void initState() {
@@ -29,9 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
 
-    fetchPopularRecipe().then((value) {
+    fetchAllRecipe().then((value) {
       setState(() {
-        _recommendedRecipe.addAll(value);
+        _allRecipe.addAll(value);
       });
     });
   }
@@ -164,11 +164,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       return GestureDetector(
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => DetailRecipe(
-                                index,
-                                _popularRecipe[index].name,
-                                _popularRecipe[index].image,
-                                tag = true),
+                            builder: (context) =>
+                                DetailRecipe(_popularRecipe[index], tag = true),
                           ),
                         ),
                         child: Container(
@@ -182,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               SizedBox(height: 8),
                               Hero(
-                                tag: "fresh$index",
+                                tag: "popular${_popularRecipe[index].id}",
                                 child: Image.asset(
                                   _popularRecipe[index].image,
                                   height: 100,
@@ -195,8 +192,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      "Breakfast",
+                                    Text(
+                                      _popularRecipe[index].categories,
                                       style: TextStyle(
                                         fontSize: 14,
                                         color: kBlueColor,
@@ -227,8 +224,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: 6),
-                                    const Text(
-                                      "120 Calories",
+                                    Text(
+                                      "${_popularRecipe[index].calories} Calories",
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: kOrangeColor,
@@ -238,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         Row(
-                                          children: const [
+                                          children: [
                                             Icon(
                                               Icons.access_time,
                                               color: Colors.grey,
@@ -246,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             SizedBox(width: 8),
                                             Text(
-                                              "10 Min",
+                                              "${_popularRecipe[index].time} Min",
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey),
@@ -262,8 +259,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: Colors.grey,
                                             ),
                                             const SizedBox(width: 8),
-                                            const Text(
-                                              "1 Serving",
+                                            Text(
+                                              "${_popularRecipe[index].serving} Serving",
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey),
@@ -287,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Recommended",
+                      "All Recipes",
                       style: TextStyle(fontSize: 22, fontFamily: "HellixBold"),
                     ),
                     GestureDetector(
@@ -305,18 +302,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 16),
                 ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: _recommendedRecipe.length,
+                  itemCount: _allRecipe.length,
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => DetailRecipe(
-                              index,
-                              _recommendedRecipe[index].name,
-                              _recommendedRecipe[index].image,
-                              tag = false),
+                          builder: (context) =>
+                              DetailRecipe(_allRecipe[index], tag = false),
                         ),
                       ),
                       child: Container(
@@ -333,9 +327,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           children: [
                             Hero(
-                              tag: "recommended$index",
+                              tag: "recommended${_allRecipe[index].id}",
                               child: Image.asset(
-                                _recommendedRecipe[index].image,
+                                _allRecipe[index].image,
                                 height: 180,
                                 width: 120,
                                 fit: BoxFit.contain,
@@ -348,8 +342,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      "Breakfast",
+                                    Text(
+                                      _allRecipe[index].categories,
                                       style: TextStyle(
                                         fontSize: 14,
                                         color: kBlueColor,
@@ -358,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     const SizedBox(height: 6),
                                     Text(
-                                      _recommendedRecipe[index].image,
+                                      _allRecipe[index].name,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontSize: 18,
@@ -376,8 +370,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: 6),
-                                    const Text(
-                                      "120 Calories",
+                                    Text(
+                                      "${_allRecipe[index].calories} Calories",
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: kOrangeColor,
@@ -387,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Row(
                                       children: [
                                         Row(
-                                          children: const [
+                                          children: [
                                             Icon(
                                               Icons.access_time,
                                               color: Colors.grey,
@@ -395,7 +389,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             SizedBox(width: 8),
                                             Text(
-                                              "10 Min",
+                                              "${_allRecipe[index].time} Min",
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey),
@@ -411,8 +405,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: Colors.grey,
                                             ),
                                             const SizedBox(width: 8),
-                                            const Text(
-                                              "1 Serving",
+                                            Text(
+                                              "${_allRecipe[index].serving} Serving",
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey),
@@ -439,7 +433,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => RecipePredictorScreen(),
+            builder: (context) => RecipePredictorScreen(_allRecipe),
           ),
         ),
         child: const Icon(Icons.image_search),
@@ -451,6 +445,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
 Future<List<Recipe>> fetchPopularRecipe() async {
   String data = await rootBundle.loadString("assets/json/popular.json");
+  var jsonResult = json.decode(data);
+
+  List<Recipe> recipes = [];
+
+  for (var recipe in jsonResult) {
+    recipes.add(Recipe.fromJson(recipe));
+  }
+  return recipes;
+}
+
+Future<List<Recipe>> fetchAllRecipe() async {
+  String data = await rootBundle.loadString("assets/json/all.json");
   var jsonResult = json.decode(data);
 
   List<Recipe> recipes = [];

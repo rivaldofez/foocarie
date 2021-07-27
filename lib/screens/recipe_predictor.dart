@@ -3,13 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:foocarie/entities/recipe.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 
 import '../constants.dart';
+import 'detail_recipe_screen.dart';
 
 class RecipePredictorScreen extends StatefulWidget {
-  const RecipePredictorScreen({Key? key}) : super(key: key);
+  List<Recipe> allRecipe;
+
+  RecipePredictorScreen(this.allRecipe);
 
   @override
   _RecipePredictorScreenState createState() => _RecipePredictorScreenState();
@@ -24,6 +28,7 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
   String _confidence = "";
   String _name = "";
   String numbers = "";
+  Recipe? predictedRecipe;
 
   getImageFromGallery() async {
     var temp = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -68,7 +73,19 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
       _confidence = _result != null
           ? (_result[0]["confidence"] * 100.0).toString().substring(0, 2) + "%"
           : "";
+      predictedRecipe =
+          _result != null ? widget.allRecipe[searchIndexRecipe(_name)] : null;
     });
+  }
+
+  int searchIndexRecipe(String id) {
+    int index = 0;
+    for (int i = 0; i < widget.allRecipe.length; i++) {
+      if (widget.allRecipe[i].id == id) {
+        index = i;
+      }
+    }
+    return index;
   }
 
   @override
@@ -110,7 +127,7 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              SizedBox(height: 12),
+              SizedBox(height: 24),
               Text(
                 "Food Calorie Checker",
                 style: TextStyle(fontSize: 24, fontFamily: "HellixBold"),
@@ -137,125 +154,140 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
                         color: kOrangeColor,
                         borderRadius: BorderRadius.circular(16),
                       ),
+                      child: Center(
+                        child: Text(
+                          "Select an image first",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: "HellixBold"),
+                        ),
+                      ),
                     ),
               const SizedBox(height: 30),
               isImageLoaded
-                  ? GestureDetector(
-                      onTap: () => {},
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 0,
-                        ),
-                        margin: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          children: [
-                            Hero(
-                              tag: "",
-                              child: Image.asset(
-                                "assets/images/01.png",
-                                height: 180,
-                                width: 120,
-                                fit: BoxFit.contain,
-                              ),
+                  ? predictedRecipe != null
+                      ? GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailRecipe(predictedRecipe!, false),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Accuracy $_confidence",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: kBlueColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Text(
-                                      "Katakuri",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: "HellixBold",
-                                      ),
-                                    ),
-                                    Row(
-                                      children: List.generate(
-                                        5,
-                                        (index) => const Icon(
-                                          Icons.star,
-                                          color: kOrangeColor,
-                                          size: 16,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 6),
-                                    const SizedBox(height: 6),
-                                    const Text(
-                                      "120 Calories",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: kOrangeColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Row(
+                          ),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 0,
+                            ),
+                            margin: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              children: [
+                                Hero(
+                                  tag: "all${predictedRecipe!.id}",
+                                  child: Image.asset(
+                                    predictedRecipe!.image,
+                                    height: 180,
+                                    width: 120,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Row(
-                                          children: const [
-                                            Icon(
-                                              Icons.access_time,
-                                              color: Colors.grey,
-                                              size: 14,
-                                            ),
-                                            SizedBox(width: 8),
-                                            Text(
-                                              "10 Min",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ],
+                                        Text(
+                                          "Accuracy $_confidence",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: kBlueColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                        const SizedBox(width: 16),
+                                        const SizedBox(height: 6),
+                                        Text(
+                                          predictedRecipe!.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: "HellixBold",
+                                          ),
+                                        ),
+                                        Row(
+                                          children: List.generate(
+                                            5,
+                                            (index) => const Icon(
+                                              Icons.star,
+                                              color: kOrangeColor,
+                                              size: 16,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        const SizedBox(height: 6),
+                                        Text(
+                                          "${predictedRecipe!.calories} Calories",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: kOrangeColor,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(height: 6),
                                         Row(
                                           children: [
-                                            SvgPicture.asset(
-                                              "assets/icons/bell.svg",
-                                              height: 14,
-                                              color: Colors.grey,
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.access_time,
+                                                  color: Colors.grey,
+                                                  size: 14,
+                                                ),
+                                                SizedBox(width: 8),
+                                                Text(
+                                                  "${predictedRecipe!.time} Min",
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey),
+                                                ),
+                                              ],
                                             ),
-                                            const SizedBox(width: 8),
-                                            const Text(
-                                              "1 Serving",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
+                                            const SizedBox(width: 16),
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  "assets/icons/bell.svg",
+                                                  height: 14,
+                                                  color: Colors.grey,
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  "${predictedRecipe!.serving} Serving",
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Center(
-                      child: Text("Select an Image First"),
-                    ),
+                          ),
+                        )
+                      : Container()
+                  : Container(),
             ],
           ),
         ),

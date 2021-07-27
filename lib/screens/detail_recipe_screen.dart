@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:foocarie/constants.dart';
+import 'package:foocarie/entities/recipe.dart';
 
 class DetailRecipe extends StatefulWidget {
-  final int index;
-  final String name;
-  final String image;
+  final Recipe recipe;
   final bool tag;
 
-  const DetailRecipe(this.index, this.name, this.image, this.tag);
+  const DetailRecipe(this.recipe, this.tag);
 
   @override
   _DetailRecipeState createState() => _DetailRecipeState();
@@ -64,8 +63,10 @@ class _DetailRecipeState extends State<DetailRecipe> {
                   ),
                   child: IconButton(
                     onPressed: () {},
-                    icon: const Icon(
-                      Icons.favorite,
+                    icon: Icon(
+                      widget.recipe.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
                       color: kLightColor,
                     ),
                   ),
@@ -74,17 +75,17 @@ class _DetailRecipeState extends State<DetailRecipe> {
               SizedBox(
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: Text(
-                  widget.name,
+                  widget.recipe.name,
                   style:
                       const TextStyle(fontSize: 36, fontFamily: "HellixBold"),
                 ),
               ),
               const SizedBox(height: 24),
-              const Text.rich(
+              Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: "\$",
+                      text: "\Budget ",
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: "HellixBold",
@@ -92,9 +93,9 @@ class _DetailRecipeState extends State<DetailRecipe> {
                       ),
                     ),
                     TextSpan(
-                      text: " 250.5",
+                      text: " Rp ${widget.recipe.price}",
                       style: TextStyle(
-                        fontSize: 36,
+                        fontSize: 28,
                         fontFamily: "HellixBold",
                         color: kOrangeColor,
                       ),
@@ -113,7 +114,7 @@ class _DetailRecipeState extends State<DetailRecipe> {
                       width: MediaQuery.of(context).size.width / 3.6,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             "Calories",
                             style: TextStyle(
@@ -124,7 +125,7 @@ class _DetailRecipeState extends State<DetailRecipe> {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            "120 Calories",
+                            "${widget.recipe.calories} Calories",
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: "HellixBold",
@@ -141,7 +142,7 @@ class _DetailRecipeState extends State<DetailRecipe> {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            "10 mins",
+                            "${widget.recipe.time} mins",
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: "HellixBold",
@@ -158,7 +159,7 @@ class _DetailRecipeState extends State<DetailRecipe> {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            "1 serving",
+                            "${widget.recipe.serving} serving",
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: "HellixBold",
@@ -169,10 +170,10 @@ class _DetailRecipeState extends State<DetailRecipe> {
                     ),
                     Hero(
                       tag: widget.tag
-                          ? "fresh${widget.index}"
-                          : "recommended${widget.index}",
+                          ? "popular${widget.recipe.id}"
+                          : "all${widget.recipe.id}",
                       child: Image.asset(
-                        widget.image,
+                        widget.recipe.image,
                         height: 250,
                         width: 400,
                         fit: BoxFit.contain,
@@ -187,10 +188,10 @@ class _DetailRecipeState extends State<DetailRecipe> {
                 style: TextStyle(fontSize: 24, fontFamily: "HellixBold"),
               ),
               const SizedBox(height: 8),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(right: 28, bottom: 28),
                 child: Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu vehicula justo. In eget finibus neque. Sed facilisis quam vitae libero placerat, et consequat nulla dignissim. Praesent felis nisl, molestie quis tempus eu, dictum non orci. In hac habitasse platea dictumst. Nam ex quam, ultrices sit amet tincidunt sed, tincidunt eget felis. In vehicula venenatis velit eget lobortis. Pellentesque sed varius velit. Nam non mattis est, at eleifend lectus. Curabitur eget pretium mi. Proin et varius lectus. Pellentesque tincidunt auctor ultricies. Integer at maximus est, quis sodales diam. Suspendisse sit amet ex vel lorem sodales consequat vel quis ipsum. In dapibus malesuada ultrices. Maecenas sollicitudin risus nulla. Aenean molestie felis tristique ullamcorper bibendum. Aenean tincidunt nunc ante, nec placerat turpis pellentesque non. Quisque non congue sem. Pellentesque ultrices lacinia mauris, ac lobortis ante placerat ac. Suspendisse pharetra pretium ornare. Maecenas et elit porta, sodales purus in, luctus ligula. Nulla sed nulla id nulla feugiat ullamcorper. Phasellus mollis aliquam sem sit amet feugiat. Quisque sit amet dapibus justo. Pellentesque molestie turpis at risus hendrerit porta. Fusce maximus fringilla ex vitae convallis.",
+                  widget.recipe.description,
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey,
