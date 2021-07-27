@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.19.1
   image_picker: ^0.8.2
+  fluttertoast: ^8.0.7
   tflite: ^1.1.2
   meta: ^1.1.8
 
