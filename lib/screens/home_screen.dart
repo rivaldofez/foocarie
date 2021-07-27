@@ -309,129 +309,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: _allRecipe.length,
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DetailRecipe(_allRecipe[index], tag = false),
-                        ),
-                      ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 0,
-                        ),
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          children: [
-                            Hero(
-                              tag: "all${_allRecipe[index].id}",
-                              child: Image.asset(
-                                _allRecipe[index].image,
-                                height: 180,
-                                width: 120,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _allRecipe[index].categories,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: kBlueColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Text(
-                                      _allRecipe[index].name,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: "HellixBold",
-                                      ),
-                                    ),
-                                    Row(
-                                      children: List.generate(
-                                        5,
-                                        (index) => const Icon(
-                                          Icons.star,
-                                          color: kOrangeColor,
-                                          size: 16,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Text(
-                                      "${_allRecipe[index].calories} Calories",
-                                      style: const TextStyle(
-                                          fontSize: 14,
-                                          color: kOrangeColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Row(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.access_time,
-                                              color: Colors.grey,
-                                              size: 14,
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              "${_allRecipe[index].time} Min",
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(width: 16),
-                                        Row(
-                                          children: [
-                                            SvgPicture.asset(
-                                              "assets/icons/bell.svg",
-                                              height: 14,
-                                              color: Colors.grey,
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              "${_allRecipe[index].serving} Serving",
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    if (constraints.maxWidth <= 700) {
+                      return RecipeListWidget(_allRecipe);
+                    } else if (constraints.maxWidth <= 1000) {
+                      return RecipeGridWidget(_allRecipe, 2);
+                    } else if (constraints.maxWidth <= 1600) {
+                      return RecipeGridWidget(_allRecipe, 3);
+                    } else {
+                      return RecipeGridWidget(_allRecipe, 4);
+                    }
                   },
                 ),
               ],
@@ -456,6 +344,275 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: const Icon(Icons.image_search),
         backgroundColor: kOrangeColor,
+      ),
+    );
+  }
+}
+
+class RecipeListWidget extends StatelessWidget {
+  final List<Recipe> _allRecipe;
+
+  RecipeListWidget(this._allRecipe);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: _allRecipe.length,
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => DetailRecipe(_allRecipe[index], false),
+            ),
+          ),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 0,
+            ),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: kPrimaryColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                Hero(
+                  tag: "all${_allRecipe[index].id}",
+                  child: Image.asset(
+                    _allRecipe[index].image,
+                    height: 180,
+                    width: 120,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _allRecipe[index].categories,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: kBlueColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          _allRecipe[index].name,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontFamily: "HellixBold",
+                          ),
+                        ),
+                        Row(
+                          children: List.generate(
+                            5,
+                            (index) => const Icon(
+                              Icons.star,
+                              color: kOrangeColor,
+                              size: 16,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          "${_allRecipe[index].calories} Calories",
+                          style: const TextStyle(
+                              fontSize: 14,
+                              color: kOrangeColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.access_time,
+                                  color: Colors.grey,
+                                  size: 14,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "${_allRecipe[index].time} Min",
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 16),
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  "assets/icons/bell.svg",
+                                  height: 14,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "${_allRecipe[index].serving} Serving",
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class RecipeGridWidget extends StatelessWidget {
+  final List<Recipe> _allRecipe;
+  final int gridCount;
+
+  RecipeGridWidget(this._allRecipe, this.gridCount);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      isAlwaysShown: true,
+      child: GridView.count(
+        shrinkWrap: true,
+        crossAxisCount: gridCount,
+        padding: EdgeInsets.zero,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        children: _allRecipe.map(
+          (recipe) {
+            return GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => DetailRecipe(recipe, false),
+                ),
+              ),
+              child: Container(
+                height: 400,
+                width: 200,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 0,
+                ),
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: kPrimaryColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Hero(
+                      tag: "all${recipe.id}",
+                      child: Image.asset(
+                        recipe.image,
+                        height: 200,
+                        width: 230,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            recipe.categories,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: kBlueColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            recipe.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontFamily: "HellixBold",
+                            ),
+                          ),
+                          Row(
+                            children: List.generate(
+                              5,
+                              (index) => const Icon(
+                                Icons.star,
+                                color: kOrangeColor,
+                                size: 16,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            "${recipe.calories} Calories",
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: kOrangeColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 6),
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.access_time,
+                                    color: Colors.grey,
+                                    size: 14,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    "${recipe.time} Min",
+                                    style: const TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: 16),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/icons/bell.svg",
+                                    height: 14,
+                                    color: Colors.grey,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    "${recipe.serving} Serving",
+                                    style: const TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ).toList(),
       ),
     );
   }
