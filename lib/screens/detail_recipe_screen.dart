@@ -65,7 +65,7 @@ class _DetailRecipeState extends State<DetailRecipe> {
                   child: IconButton(
                     onPressed: () {},
                     icon: const Icon(
-                      Icons.star,
+                      Icons.favorite,
                       color: kLightColor,
                     ),
                   ),

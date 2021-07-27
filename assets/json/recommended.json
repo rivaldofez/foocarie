@@ -1,0 +1,62 @@
+[
+    {
+        "id" : "06",
+        "name" : "Filete Con Papas Steak",
+        "price" : 334000,
+        "calories" : 400.6,
+        "time" : 60.5,
+        "serving" : 2,
+        "isFavorite" : true,
+        "image" : "assets/images/06.png",
+        "category" : "Lunch",
+        "description" : "Season beef with salt and pepper. Heat oil in a large skillet or casserole over medium-high heat until shimmering. Add meat cubes and cook until browned on all sides. About 10 minutes. (Please check the ingredients list below). While the meat is cooking, place in your blender the tomatoes, onion, garlic and a cup of chicken broth. Puree until you have a smooth sauce. Stir in this sauce into the skillet with the meat using a strainer or sieve.  Bring it to simmering and cook covered for about 20 minutes. Add more broth if needed."
+    },
+    {
+        "id" : "07",
+        "name" : "Healthy Salad Low Calories",
+        "price" : 80000,
+        "calories" : 50.6,
+        "time" : 10,
+        "serving" : 1,
+        "isFavorite" : false,
+        "image" : "assets/images/07.png",
+        "category" : "Breakfast",
+        "description" : "Peel cucumbers to leave alternating green stripes. Slice the cucumbers in half lengthwise; scrape the seeds out with a spoon. Using a food processor or sharp knife, cut into very thin slices. Place in a double layer of paper towel and squeeze gently to remove any excess moisture. Combine vinegar, sugar and salt in a medium bowl, stirring to dissolve. Add the cucumbers and sesame seeds; toss well to combine. Serve immediately."
+    },
+    {
+        "id" : "08",
+        "name" : "Kebuli Rice with Salad and Potato Ball",
+        "price" : 220000,
+        "calories" : 280.6,
+        "time" : 55.5,
+        "serving" : 5,
+        "isFavorite" : true,
+        "image" : "assets/images/08.png",
+        "category" : "Lunch",
+        "description" : "Boil lamb with water, bay leaves, cloves, and ginger and cook until the meat is tender. Drain and set the lamb aside. Heat oil in a pot and stir fry the spice paste, and all the additional spices until fragrant, about 3 minutes. Turn the rice cooker on and cook until the rice is ready, the machine usually turns to warm at this stage. Let rest for 10 minutes, then open the rice cooker. Remove the leaves and lemongrass, give a quick stir with a rice paddle and serve immediately."
+    },
+    {
+        "id" : "09",
+        "name" : "Mini Salad Snacks",
+        "price" : 30000,
+        "calories" : 50.6,
+        "time" : 10,
+        "serving" : 2,
+        "isFavorite" : false,
+        "image" : "assets/images/09.png",
+        "category" : "Snacks",
+        "description" : "A three-flavour combination of tomato, basil and bocconcini. An effortless appetiser that's hard to beat. This summer refresher combines cubes of melon and feta with a few leaves of mint. This salad uses cantaloupe (rockmelon), but any melon varieties will work just as well. This salad is a perfect pairing of the aniseed flavour of fennel, with the crunch of cucumber and a burst of fresh orange."
+    },
+    {
+        "id" : "10",
+        "name" : "Salmon Salad",
+        "price" : 340000,
+        "calories" : 203.6,
+        "time" : 40.5,
+        "serving" : 3,
+        "isFavorite" : false,
+        "image" : "assets/images/10.png",
+        "category" : "Breakfast",
+        "description" : "To get started, cook some salmon any way you wish…grill it, bake it, poach it, saute it. It doesn’t really matter since we’ll be flaking it up anyway. If cooking it in a skillet, cook for about 5-10 minutes (depending on thickness) over medium high heat, until the interior reaches 140F and is no longer pink. Most of the time I just use the method from my Baked Salmon, at 425 degrees F for about 12-15 minutes, until no longer pink inside."
+    },
+]
