@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foocarie/constants.dart';
 import 'package:foocarie/entities/recipe.dart';
 import 'package:foocarie/screens/detail_recipe_screen.dart';
@@ -17,8 +19,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool tag = false;
-  List<Recipe> _popularRecipe = [];
-  List<Recipe> _allRecipe = [];
+  final List<Recipe> _popularRecipe = [];
+  final List<Recipe> _allRecipe = [];
 
   @override
   void initState() {
@@ -58,7 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => print("notifications"),
+                      onTap: () {
+                        Fluttertoast.showToast(
+                            msg: "Notification Feature on Progress",
+                            fontSize: 10);
+                      },
                       child: SvgPicture.asset(
                         "assets/icons/notification.svg",
                         height: 32.0,
@@ -114,7 +120,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(width: 16),
                     GestureDetector(
-                      onTap: () => print("settings"),
+                      onTap: () => Fluttertoast.showToast(
+                          msg: "Settings Feature on Progress", fontSize: 10),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 18,
@@ -142,7 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(fontSize: 22, fontFamily: "HellixBold"),
                     ),
                     GestureDetector(
-                      onTap: () => print("see all"),
+                      onTap: () => Fluttertoast.showToast(
+                          msg: "See All Feature on Progress", fontSize: 10),
                       child: const Text(
                         "See All",
                         style: TextStyle(
@@ -177,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Column(
                             children: [
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Hero(
                                 tag: "popular${_popularRecipe[index].id}",
                                 child: Image.asset(
@@ -194,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     Text(
                                       _popularRecipe[index].categories,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 14,
                                         color: kBlueColor,
                                         fontWeight: FontWeight.bold,
@@ -226,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     const SizedBox(height: 6),
                                     Text(
                                       "${_popularRecipe[index].calories} Calories",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 14,
                                           color: kOrangeColor,
                                           fontWeight: FontWeight.bold),
@@ -236,15 +244,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.access_time,
                                               color: Colors.grey,
                                               size: 14,
                                             ),
-                                            SizedBox(width: 8),
+                                            const SizedBox(width: 8),
                                             Text(
                                               "${_popularRecipe[index].time} Min",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey),
                                             ),
@@ -261,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             const SizedBox(width: 8),
                                             Text(
                                               "${_popularRecipe[index].serving} Serving",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey),
                                             ),
@@ -288,7 +296,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(fontSize: 22, fontFamily: "HellixBold"),
                     ),
                     GestureDetector(
-                      onTap: () => print("see recommended"),
+                      onTap: () => Fluttertoast.showToast(
+                          msg: "Recommended Feature on Progress", fontSize: 10),
                       child: const Text(
                         "See All",
                         style: TextStyle(
@@ -327,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           children: [
                             Hero(
-                              tag: "recommended${_allRecipe[index].id}",
+                              tag: "all${_allRecipe[index].id}",
                               child: Image.asset(
                                 _allRecipe[index].image,
                                 height: 180,
@@ -344,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     Text(
                                       _allRecipe[index].categories,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 14,
                                         color: kBlueColor,
                                         fontWeight: FontWeight.bold,
@@ -372,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     const SizedBox(height: 6),
                                     Text(
                                       "${_allRecipe[index].calories} Calories",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 14,
                                           color: kOrangeColor,
                                           fontWeight: FontWeight.bold),
@@ -382,15 +391,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.access_time,
                                               color: Colors.grey,
                                               size: 14,
                                             ),
-                                            SizedBox(width: 8),
+                                            const SizedBox(width: 8),
                                             Text(
                                               "${_allRecipe[index].time} Min",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey),
                                             ),
@@ -407,7 +416,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             const SizedBox(width: 8),
                                             Text(
                                               "${_allRecipe[index].serving} Serving",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey),
                                             ),
@@ -431,11 +440,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => RecipePredictorScreen(_allRecipe),
-          ),
-        ),
+        onPressed: () {
+          if (kIsWeb) {
+            Fluttertoast.showToast(
+                msg:
+                    "Feature not available on web, change yout device to mobile",
+                fontSize: 10);
+          } else {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => RecipePredictorScreen(_allRecipe),
+              ),
+            );
+          }
+        },
         child: const Icon(Icons.image_search),
         backgroundColor: kOrangeColor,
       ),

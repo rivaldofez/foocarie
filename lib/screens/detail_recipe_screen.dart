@@ -6,7 +6,7 @@ class DetailRecipe extends StatefulWidget {
   final Recipe recipe;
   final bool tag;
 
-  const DetailRecipe(this.recipe, this.tag);
+  const DetailRecipe(this.recipe, this.tag, {Key? key}) : super(key: key);
 
   @override
   _DetailRecipeState createState() => _DetailRecipeState();
@@ -84,8 +84,8 @@ class _DetailRecipeState extends State<DetailRecipe> {
               Text.rich(
                 TextSpan(
                   children: [
-                    TextSpan(
-                      text: "\Budget ",
+                    const TextSpan(
+                      text: "Budget ",
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: "HellixBold",
@@ -93,8 +93,8 @@ class _DetailRecipeState extends State<DetailRecipe> {
                       ),
                     ),
                     TextSpan(
-                      text: " Rp ${widget.recipe.price}",
-                      style: TextStyle(
+                      text: "\nRp ${widget.recipe.price}",
+                      style: const TextStyle(
                         fontSize: 28,
                         fontFamily: "HellixBold",
                         color: kOrangeColor,
@@ -115,7 +115,7 @@ class _DetailRecipeState extends State<DetailRecipe> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Calories",
                             style: TextStyle(
                               fontSize: 16,
@@ -123,16 +123,16 @@ class _DetailRecipeState extends State<DetailRecipe> {
                               fontFamily: "HellixBold",
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             "${widget.recipe.calories} Calories",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontFamily: "HellixBold",
                             ),
                           ),
-                          SizedBox(height: 36),
-                          Text(
+                          const SizedBox(height: 36),
+                          const Text(
                             "Time",
                             style: TextStyle(
                               fontSize: 16,
@@ -140,16 +140,16 @@ class _DetailRecipeState extends State<DetailRecipe> {
                               fontFamily: "HellixBold",
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             "${widget.recipe.time} mins",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontFamily: "HellixBold",
                             ),
                           ),
-                          SizedBox(height: 36),
-                          Text(
+                          const SizedBox(height: 36),
+                          const Text(
                             "Total Serving",
                             style: TextStyle(
                               fontSize: 16,
@@ -157,10 +157,10 @@ class _DetailRecipeState extends State<DetailRecipe> {
                               fontFamily: "HellixBold",
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             "${widget.recipe.serving} serving",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontFamily: "HellixBold",
                             ),
@@ -189,10 +189,10 @@ class _DetailRecipeState extends State<DetailRecipe> {
               ),
               const SizedBox(height: 8),
               Padding(
-                padding: EdgeInsets.only(right: 28, bottom: 28),
+                padding: const EdgeInsets.only(right: 28, bottom: 28),
                 child: Text(
                   widget.recipe.description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     color: Colors.grey,
                     fontFamily: "HellixBold",

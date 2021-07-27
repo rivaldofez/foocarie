@@ -11,16 +11,16 @@ import '../constants.dart';
 import 'detail_recipe_screen.dart';
 
 class RecipePredictorScreen extends StatefulWidget {
-  List<Recipe> allRecipe;
+  final List<Recipe> allRecipe;
 
-  RecipePredictorScreen(this.allRecipe);
+  const RecipePredictorScreen(this.allRecipe, {Key? key}) : super(key: key);
 
   @override
   _RecipePredictorScreenState createState() => _RecipePredictorScreenState();
 }
 
 class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
-  File? imagePicked = null;
+  File? imagePicked;
   bool isImageLoaded = false;
 
   List _result = [];
@@ -48,11 +48,9 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
   }
 
   loadRecipeModel() async {
-    var result = await Tflite.loadModel(
+    await Tflite.loadModel(
         labels: "assets/models/labels.txt",
         model: "assets/models/model.tflite");
-
-    print("Result after loading : $result");
   }
 
   predictImage(File file) async {
@@ -65,16 +63,20 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
     );
 
     setState(() {
-      _result = res!;
+      _result = res ?? [];
 
       String str = _result[0]["label"];
 
       _name = str.substring(2);
-      _confidence = _result != null
+      _confidence = _result != []
           ? (_result[0]["confidence"] * 100.0).toString().substring(0, 2) + "%"
           : "";
-      predictedRecipe =
-          _result != null ? widget.allRecipe[searchIndexRecipe(_name)] : null;
+
+      if (_result != []) {
+        predictedRecipe = widget.allRecipe[searchIndexRecipe(_name)];
+      } else {
+        predictedRecipe = null;
+      }
     });
   }
 
@@ -123,16 +125,16 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
         ),
       ),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              SizedBox(height: 24),
-              Text(
+              const SizedBox(height: 24),
+              const Text(
                 "Food Calorie Checker",
                 style: TextStyle(fontSize: 24, fontFamily: "HellixBold"),
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               isImageLoaded
                   ? Container(
                       width: 200,
@@ -154,7 +156,7 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
                         color: kOrangeColor,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Select an image first",
                           style: TextStyle(
@@ -206,7 +208,7 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
                                       children: [
                                         Text(
                                           "Accuracy $_confidence",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                             color: kBlueColor,
                                             fontWeight: FontWeight.bold,
@@ -235,7 +237,7 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
                                         const SizedBox(height: 6),
                                         Text(
                                           "${predictedRecipe!.calories} Calories",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 14,
                                               color: kOrangeColor,
                                               fontWeight: FontWeight.bold),
@@ -245,15 +247,15 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
                                           children: [
                                             Row(
                                               children: [
-                                                Icon(
+                                                const Icon(
                                                   Icons.access_time,
                                                   color: Colors.grey,
                                                   size: 14,
                                                 ),
-                                                SizedBox(width: 8),
+                                                const SizedBox(width: 8),
                                                 Text(
                                                   "${predictedRecipe!.time} Min",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 12,
                                                       color: Colors.grey),
                                                 ),
@@ -270,7 +272,7 @@ class _RecipePredictorScreenState extends State<RecipePredictorScreen> {
                                                 const SizedBox(width: 8),
                                                 Text(
                                                   "${predictedRecipe!.serving} Serving",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 12,
                                                       color: Colors.grey),
                                                 ),
