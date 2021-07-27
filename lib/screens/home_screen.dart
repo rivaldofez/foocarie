@@ -352,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
 class RecipeListWidget extends StatelessWidget {
   final List<Recipe> _allRecipe;
 
-  RecipeListWidget(this._allRecipe);
+  const RecipeListWidget(this._allRecipe, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -432,7 +432,7 @@ class RecipeListWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 6),
-                        Row(
+                        Column(
                           children: [
                             Row(
                               children: [
@@ -484,7 +484,8 @@ class RecipeGridWidget extends StatelessWidget {
   final List<Recipe> _allRecipe;
   final int gridCount;
 
-  RecipeGridWidget(this._allRecipe, this.gridCount);
+  const RecipeGridWidget(this._allRecipe, this.gridCount, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
