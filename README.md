@@ -122,7 +122,7 @@ Project Link: [https://github.com/rivaldofez/foocarie](https://github.com/rivald
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-This apps in one of my Submission while learning Android at Dicoding Indonesia
+This apps in one of my Submission while learning Flutter at Dicoding Indonesia
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
